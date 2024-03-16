@@ -21,6 +21,16 @@
     }
 }
 
+@media (min-width: 480px) and (max-width: 1024px) {
+    .nav-el {
+        font-size: calc(16px + (18 - 16) * ( (100vw - 480px) / ( 1024 - 480) ));
+    }
+    .nav-icon {
+        margin: auto;
+        width: calc((18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));
+        height: calc((18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));
+    }
+}
 /*.custom-theme {*/
 /*    background-color: #FFFFFF;*/
 /*}*/
