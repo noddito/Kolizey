@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    function getPage ()
+    function getIndexPage ()
     {
         return view('company');
     }

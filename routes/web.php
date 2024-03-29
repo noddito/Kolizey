@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminSettingsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +19,24 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/company', 'CompanyController@getPage');
+Route::get('/company', 'CompanyController@getIndexPage');
 
-Route::get('/services', 'ServiceController@getPage');
+Route::get('/services', 'ServiceController@getIndexPage');
 
-Route::get('/projects', 'ProjectsController@getPage');
+Route::get('/projects', 'ProjectsController@getIndexPage');
 
-Route::get('/customers', 'CustomersController@getPage');
+Route::get('/customers', 'CustomersController@getIndexPage');
 
-Route::get('/contacts', 'ContactsController@getPage');
+Route::get('/contacts', 'ContactsController@getIndexPage');
 
-Route::get('/services/create-service', 'ServiceController@createService');
+Auth::routes();
+
+Route::get('/home', [ HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['role:admin'] , 'prefix' => 'admin'] , function (){
+    Route::get('/', 'Admin\AdminController@getIndexPage');
+
+    Route::resource('settings' , AdminSettingsController::class);
+});
+
+Route::get('/home', [ HomeController::class, 'index'])->name('home');

@@ -1,5 +1,6 @@
 version: '3'
-
+networks:
+    app_net:
 services:
     nginx:
         image: nginx:latest
@@ -11,6 +12,8 @@ services:
         depends_on:
             - app
         container_name: project_nginx
+        networks:
+            - app_net
 
     app:
         build:
@@ -21,6 +24,8 @@ services:
         depends_on:
             - db
         container_name: project_app
+        networks:
+            - app_net
 
     db:
         image: mysql:8.3.0
@@ -29,9 +34,12 @@ services:
             - ./tmp/db:/var/lib/mysql
         environment:
             MYSQL_DATABASE: kolizey
-            MYSQL_ROOT_PASSWORD: _q0H35Q3cc.k
             MYSQL_USER: admin
             MYSQL_PASSWORD: C5oQwX
+            MYSQL_ROOT_PASSWORD: "_q0H35Q3cc.k"
         ports:
             - "8801:3306"
+        command: "mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --default-authentication-plugin=mysql_native_password"
         container_name: project_db
+        networks:
+            - app_net

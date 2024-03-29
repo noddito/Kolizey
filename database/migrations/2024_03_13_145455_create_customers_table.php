@@ -16,6 +16,8 @@ return new class extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->id()->from(1)->nullable(false);
             $table->string('name')->nullable(false);
+            $table->string('phone')->nullable(true);
+            $table->string('email')->nullable(true);
             $table->text('description')->nullable(true);
             $table->string('logo_path')->nullable(true);
             $table->string('site_url')->nullable(true);

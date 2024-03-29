@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
-    function getPage()
+    function getIndexPage()
     {
         return view('projects');
     }
