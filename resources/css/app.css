@@ -12,6 +12,12 @@
     font-size:1.5vw;
 }
 
+.custom-file-input {
+    background-color: #282e36;
+}
+.custom-file-input::file-selector-button {
+    color: rgba(0,0,0,0);
+}
 @media screen and (max-width: 1100px) {
     .nav-el{
         font-size:1.85vw;
