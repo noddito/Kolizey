@@ -19,7 +19,15 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('logo_path')->nullable(true);
         });
+
+        DB::table('users')->insert([
+            'id' => '1',
+            'name' => 'admin' ,
+            'password' => password_hash('adminadmin' , PASSWORD_BCRYPT) ,
+            'email' => 'admin@admin.com' ,
+        ]);
     }
 
     /**
