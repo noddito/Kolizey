@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-black sticky-top border-bottom" data-bs-theme="dark">
     <div class="container" bis_skin_checked="1">
-        <a class="navbar-brand logo" href="/">
+        <a class="navbar-brand logo" href="{{ route('index') }}">
             <img  width ='150vmin' height='70vmin' alt="" src="{{ Vite::asset('public/img/logo.png') }}">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas" aria-label="Toggle navigation">

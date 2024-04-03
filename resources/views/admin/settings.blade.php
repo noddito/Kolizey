@@ -32,9 +32,14 @@
                                                 <label for="password">Новый пароль</label>
                                                 <input type="password" name="new_password" class="form-control" id="new_password" placeholder="Password123">
                                             </div>
-                                            <div class="form-group" >
-                                                <label for="logo">Загрузить аватар</label>
-                                                <input type="file" id="logo" name="logo" class="form-control file-upload-info" placeholder="Выберите фото" accept="image/jpeg , image/png">
+                                            <div class="example-2">
+                                                <div class="form-group">
+                                                    <input type="file" id="file" name="file" class="input-file" accept="image/jpeg , image/png">
+                                                    <label for="file" class="btn btn-tertiary js-labelFile">
+                                                        <i class="icon fa fa-check"></i>
+                                                        <span class="js-fileName">Загрузить аватар</span>
+                                                    </label>
+                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
                                             <button class="btn btn-dark">Отмена</button>
