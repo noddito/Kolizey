@@ -36,7 +36,7 @@
                 <span class="nav-link">Навигация</span>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('users.index') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-account-edit"></i>
               </span>
@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/forms/basic_elements.html">
+                <a class="nav-link" href="{{ route('projects.index') }}">
               <span class="menu-icon ">
                 <i class="mdi mdi-home-group"></i>
               </span>
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/tables/basic-table.html">
+                <a class="nav-link" href="{{ route('services.index') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-hammer"></i>
               </span>
@@ -173,6 +173,7 @@
 <script src="{{ asset('/admin/assets/js/settings.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/todolist.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/inputfile.js')}}"></script>
+<script src="{{ asset('/admin/assets/js/delete-button.js')}}"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="{{ asset('/admin/assets/js/dashboard.js')}}"></script>

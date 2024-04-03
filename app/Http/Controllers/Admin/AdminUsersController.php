@@ -3,20 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ModelHasRoles;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Expr\AssignOp\Mod;
 use Validator;
 
-class AdminSettingsController extends Controller
+class AdminUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    function index ()
+    public function index()
     {
-        return view('admin.settings');
+        $users = User::orderBy('created_at' , 'desc')->get();
+        return view('admin.users.index',[
+            'users' => $users,
+            ]
+        );
     }
 
     /**
@@ -48,7 +55,15 @@ class AdminSettingsController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $role_id = ModelHasRoles::where('model_id',$user->id)->get();
+        $curennt_role = Role::where('id',$role_id[0]->role_id)->get();
+        $rolesArray = Role::query()->get();
+
+        return view('admin.users.edit' , [
+            'user' => $user,
+            'curennt_role' => $curennt_role[0],
+            'all_roles' => $rolesArray
+        ]);
     }
 
     /**
@@ -58,21 +73,21 @@ class AdminSettingsController extends Controller
     {
         $rules = [
             'name' => 'required|string',
-            'old_password' => 'required|string|max:30|min:8',
             'new_password' => 'nullable|string|max:30|min:8',
             'email' => 'required|email',
             'file' => 'nullable|image',
         ];
-
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $user = User::where(['id' => Auth::user()->id])->first();
+        $user = User::where(['id' => $request->id])->first();
+
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+
         if($request->file('file') !== null){
             $path = $request->file('file')->store('images' , 'public');
             if ($user->logo_path !== null) {
@@ -81,16 +96,18 @@ class AdminSettingsController extends Controller
             $user->logo_path = $path;
             $user->save();
         }
-        if(password_verify( $request->old_password , $user->password ) === false)
-        {
-            return redirect()->back()->withErrors(['error' => 'Введен не правильный текущий пароль']);
-        }
-        if(password_verify( $request->old_password , $user->password ) === true && $request->new_password !== null){
+
+        if ($request->new_password !== null) {
             $user->password = password_hash($request->new_password , PASSWORD_BCRYPT);
-            $user->save();
-            return redirect()->back()->with('success','Данные пользователя были обновлены');
         }
-        return redirect()->back();
+
+        if ($request->role_id !== null) {
+            DB::update(
+                'update model_has_roles set role_id = ' . $request->role_id . ' where model_id = ' . $request->id
+            );
+        }
+        $user->save();
+        return redirect()->back()->with('success','Данные пользователя были обновлены');
     }
 
     /**
@@ -98,6 +115,10 @@ class AdminSettingsController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if($user->id !== 1) {
+            $user->delete();
+        }
+
+        return redirect()->back()->with('success','Пользователь успешно удален');
     }
 }
