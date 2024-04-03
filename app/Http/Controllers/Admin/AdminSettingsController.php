@@ -62,7 +62,7 @@ class AdminSettingsController extends Controller
             'old_password' => 'required|string|max:30|min:8',
             'new_password' => 'nullable|string|max:30|min:8',
             'email' => 'required|email',
-            'logo' => 'nullable|image',
+            'file' => 'nullable|image',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -74,8 +74,8 @@ class AdminSettingsController extends Controller
         $user = User::where(['id' => Auth::user()->id])->first();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        if($request->file('logo') !== null){
-            $path = $request->file('logo')->store('images' , 'public');
+        if($request->file('file') !== null){
+            $path = $request->file('file')->store('images' , 'public');
             if ($user->logo_path !== null) {
                 Storage::disk('public')->delete($user->logo_path);
             }

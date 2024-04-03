@@ -17,7 +17,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('index');
 
 Route::get('/company', 'CompanyController@getIndexPage');
 
@@ -31,12 +31,8 @@ Route::get('/contacts', 'ContactsController@getIndexPage');
 
 Auth::routes();
 
-Route::get('/home', [ HomeController::class, 'index'])->name('home');
-
 Route::group(['middleware' => ['role:admin'] , 'prefix' => 'admin'] , function (){
-    Route::get('/', 'Admin\AdminController@getIndexPage');
+    Route::get('/', 'Admin\AdminController@getIndexPage')->name('admin');
 
     Route::resource('settings' , AdminSettingsController::class);
 });
-
-Route::get('/home', [ HomeController::class, 'index'])->name('home');

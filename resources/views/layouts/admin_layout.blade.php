@@ -21,13 +21,14 @@
     <link rel="stylesheet" href="{{ asset('/admin/assets/css/style.css') }}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('/admin/assets/images/favicon.png') }}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="container-scroller">
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-            <a class="sidebar-brand brand-logo" href="{{'./'}}"><img src="{{ asset('/admin/assets/images/logo.svg')}}" alt="logo" /></a>
+            <a class="sidebar-brand brand-logo" href="{{ route('admin') }}"><img src="{{ asset('/admin/assets/images/logo.svg')}}" alt="logo" /></a>
             <a class="sidebar-brand brand-logo-mini" href="{{session()->previousUrl()}}"><img src="{{ asset('/admin/assets/images/logo.svg' )}}" alt="logo" /></a>
         </div>
         <ul class="nav">
@@ -37,83 +38,25 @@
             <li class="nav-item menu-items">
                 <a class="nav-link" href="index.html">
               <span class="menu-icon">
-                <i class="mdi mdi-speedometer"></i>
+                <i class="mdi mdi-account-edit"></i>
               </span>
-                    <span class="menu-title">Dashboard</span>
+                    <span class="menu-title">Пользователи</span>
                 </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <span class="menu-icon">
-                <i class="mdi mdi-laptop"></i>
-              </span>
-                    <span class="menu-title">Basic UI Elements</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="ui-basic">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                    </ul>
-                </div>
             </li>
             <li class="nav-item menu-items">
                 <a class="nav-link" href="pages/forms/basic_elements.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
+              <span class="menu-icon ">
+                <i class="mdi mdi-home-group"></i>
               </span>
-                    <span class="menu-title">Form Elements</span>
+                    <span class="menu-title">Проекты</span>
                 </a>
             </li>
             <li class="nav-item menu-items">
                 <a class="nav-link" href="pages/tables/basic-table.html">
               <span class="menu-icon">
-                <i class="mdi mdi-table-large"></i>
+                <i class="mdi mdi-hammer"></i>
               </span>
-                    <span class="menu-title">Tables</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/charts/chartjs.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-chart-bar"></i>
-              </span>
-                    <span class="menu-title">Charts</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/icons/mdi.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-                    <span class="menu-title">Icons</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
-              </span>
-                    <span class="menu-title">User Pages</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="auth">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
-              </span>
-                    <span class="menu-title">Documentation</span>
+                    <span class="menu-title">Услуги</span>
                 </a>
             </li>
         </ul>
@@ -156,49 +99,6 @@
                     @endif
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item dropdown border-left">
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <h6 class="p-3 mb-0">Notifications</h6>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-calendar text-success"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Event today</p>
-                                    <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-settings text-danger"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Settings</p>
-                                    <p class="text-muted ellipsis mb-0"> Update dashboard </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-link-variant text-warning"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Launch Admin</p>
-                                    <p class="text-muted ellipsis mb-0"> New admin wow! </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <p class="p-3 mb-0 text-center">See all notifications</p>
-                        </div>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                             <div class="navbar-profile">
@@ -272,6 +172,7 @@
 <script src="{{ asset('/admin/assets/js/misc.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/settings.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/todolist.js')}}"></script>
+<script src="{{ asset('/admin/assets/js/inputfile.js')}}"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="{{ asset('/admin/assets/js/dashboard.js')}}"></script>
