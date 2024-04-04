@@ -8,41 +8,56 @@
                         <div class="card-body">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Изменение параметров пользователя </h4>
-                                    <form class="forms-sample" action="{{ route('settings.update' , Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+                                    <h4 class="card-title">Изменение проекта: {{$project->name}}</h4>
+                                    <form class="forms-sample" action="{{ route('projects.update' , $project->id) }}"  method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
-                                        <div class="form-group" hidden="">
-                                            <label for="id">ID</label>
-                                            <input type="text" disabled="" name="id" class="form-control" id="id" placeholder="123" value="{{Auth::user()->id}}" required>
+                                        <div class="form-group">
+                                            <label for="name">Название</label>
+                                            <input type="text" name="name" class="form-control" id="name" placeholder="Название услуги" value="{{$project->name}}" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="name">Имя</label>
-                                            <input type="text" name="name" class="form-control" id="name" placeholder="myname" value="{{Auth::user()->name}}" required>
+                                            <label for="description">Описание</label>
+                                            <input type="text" name="description" class="form-control" id="description" placeholder="Какое-то описание" value="{{$project->description}}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="email">Почта</label>
-                                            <input type="email" name="email" class="form-control" id="email" placeholder="somemail@mail.com" value="{{Auth::user()->email}}" required>
+                                            <label for="end_date">Дата окончания</label>
+                                            <input type="date" name="end_date" class="form-control" id="end_date" value="{{$project->end_date}}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="old_password">Текущий пароль</label>
-                                            <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Password123"  required>
+                                            <label for="status">Статус</label>
+                                            <br>
+                                            <select name="status" id="status" class="btn btn-outline-secondary dropdown-toggle">
+                                                @if($project->status === 'Создан')
+                                                    <option value="Создан" selected>Создан</option>
+                                                    <option value="Закончен">Закончен</option>
+                                                    <option value="В процессе">В процессе</option>
+                                                @elseif($project->status === 'В процессе')
+                                                    <option value="В процессе" selected>В процессе</option>
+                                                    <option value="Создан">Создан</option>
+                                                    <option value="Закончен">Закончен</option>
+                                                @else
+                                                    <option value="Закончен" selected>Закончен</option>
+                                                    <option value="В процессе">В процессе</option>
+                                                    <option value="Создан">Создан</option>
+                                                @endif
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="password">Новый пароль</label>
-                                            <input type="password" name="new_password" class="form-control" id="new_password" placeholder="Password123">
+                                            <label for="status">Заказчик</label>
+                                            <br>
+                                            <select name="customer_id" id="customer_id" class="btn btn-outline-secondary dropdown-toggle">
+                                                @foreach($all_customers as $customer)
+                                                    @if($customer->id === $curennt_customer->id)
+                                                        <option value="{{$customer->id}}" selected>{{$customer->name}}</option>
+                                                        @else()
+                                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <div class="example-2">
-                                            <div class="form-group">
-                                                <input type="file" id="file" name="file" class="input-file" accept="image/jpeg , image/png">
-                                                <label for="file" class="btn btn-tertiary js-labelFile">
-                                                    <i class="icon fa fa-check"></i>
-                                                    <span class="js-fileName">Загрузить аватар</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
-                                        <button class="btn btn-dark">Отмена</button>
+                                        <button type="submit" class="btn btn-inverse-success btn-fw">Сохранить</button>
+                                        <a href="{{route('projects.index')}}" class="btn btn-inverse-danger btn-fw">Отмена</a>
                                     </form>
                                 </div>
                             </div>

@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('logo_path')->nullable(true);
+            $table->string('phone')->nullable(true);
+            $table->string('site_url')->nullable(true);
+            $table->text('description')->nullable(true);
             $table->rememberToken();
             $table->timestamps();
-            $table->string('logo_path')->nullable(true);
         });
 
         DB::table('users')->insert([

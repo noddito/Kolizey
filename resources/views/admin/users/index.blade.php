@@ -7,6 +7,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Пользователи</h4>
+                            <a href="{{route('users.create')}}">
+                                <button class="btn btn-inverse-warning btn-fw">
+                                Создать пользователя
+                                </button>
+                            </a>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>

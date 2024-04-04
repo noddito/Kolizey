@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Услуги</h4>
                             <a href="{{route('services.create')}}">
-                                <button class="btn btn-inverse-success">
+                                <button class="btn btn-inverse-warning btn-fw">
                                     Создать услугу
                                 </button>
                             </a>
@@ -19,15 +19,14 @@
                                     <thead>
                                     <tr>
                                         <th>  </th>
+                                        <th> Лого </th>
                                         <th> Название </th>
                                         <th> Описание </th>
-                                        <th> Создана </th>
-                                        <th> Изменена </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($services as $service)
-                                        <tr>
+                                        <td>
                                             <td>
                                                 @if($service->logo_path !== null)
                                                     <img src="{{asset('/storage/' . $service->logo_path)}}" alt="image">
@@ -37,9 +36,33 @@
                                             </td>
                                             <td> {{$service->name}} </td>
                                             <td> {{$service->description}} </td>
-                                            <td> {{$service->created_at}} </td>
-                                            <td> {{$service->updated_at}} </td>
-                                        </tr>
+                                            <td> <a href="{{route('services.edit' , $service->id)}}" type="button" class="btn btn-inverse-success btn-fw">Изменить</a>
+                                        <td>
+                                            <button type="submit" class="btn btn-inverse-danger btn-fw delete-btn">Удалить</button>
+                                            <div id="PromiseConfirm" class="modal">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"><i class="mdi mdi-exclamation  text-danger"></i> <span>Подтвердите действие</span></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{route('services.destroy' , $service->id)}}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-inverse-success btn-fw delete-btn">Удалить</button>
+                                                                <button type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-inverse-danger btn-fw delete-btn">Отмена</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
                                     @endforeach
                                     </tbody>
                                 </table>

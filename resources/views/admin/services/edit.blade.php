@@ -8,41 +8,33 @@
                         <div class="card-body">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Изменение параметров пользователя </h4>
-                                    <form class="forms-sample" action="{{ route('settings.update' , Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+                                    <h4 class="card-title">Изменение услуги: {{$service->name}} </h4>
+                                    <form class="forms-sample" action="{{ route('services.update' , $service->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="form-group" hidden="">
                                             <label for="id">ID</label>
-                                            <input type="text" disabled="" name="id" class="form-control" id="id" placeholder="123" value="{{Auth::user()->id}}" required>
+                                            <input type="text" hidden="" name="id" class="form-control" id="id" placeholder="123" value="{{$service->id}}" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="name">Имя</label>
-                                            <input type="text" name="name" class="form-control" id="name" placeholder="myname" value="{{Auth::user()->name}}" required>
+                                            <label for="name">Название</label>
+                                            <input type="text" name="name" class="form-control" id="name" placeholder="название услуги" value="{{$service->name}}" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="email">Почта</label>
-                                            <input type="email" name="email" class="form-control" id="email" placeholder="somemail@mail.com" value="{{Auth::user()->email}}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="old_password">Текущий пароль</label>
-                                            <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Password123"  required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Новый пароль</label>
-                                            <input type="password" name="new_password" class="form-control" id="new_password" placeholder="Password123">
+                                            <label for="description">Описание</label>
+                                            <input type="text" name="description" class="form-control" id="description" placeholder="подробное описание" value="{{$service->description}}" required>
                                         </div>
                                         <div class="example-2">
                                             <div class="form-group">
                                                 <input type="file" id="file" name="file" class="input-file" accept="image/jpeg , image/png">
                                                 <label for="file" class="btn btn-tertiary js-labelFile">
                                                     <i class="icon fa fa-check"></i>
-                                                    <span class="js-fileName">Загрузить аватар</span>
+                                                    <span class="js-fileName">Загрузить фото</span>
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
-                                        <button class="btn btn-dark">Отмена</button>
+                                        <button type="submit" class="btn btn-inverse-success btn-fw">Сохранить</button>
+                                        <a href="{{route('services.index')}}" class="btn btn-inverse-danger btn-fw">Отмена</a>
                                     </form>
                                 </div>
                             </div>

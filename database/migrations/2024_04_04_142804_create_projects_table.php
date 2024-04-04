@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('end_date')->nullable(true);
             $table->string('status')->nullable(true);
             $table->bigInteger('customer_id')->unsigned()->index();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
