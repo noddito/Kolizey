@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelHasRoles;
+use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,9 +20,11 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
+        $projects = Project::orderBy('created_at' , 'desc')->get();
         $users = User::orderBy('created_at' , 'desc')->get();
         return view('admin.users.index',[
             'users' => $users,
+                'projects' => $projects
             ]
         );
     }
@@ -31,7 +34,10 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        //
+        $rolesArray = Role::query()->get();
+        return view('admin.users.create' , [
+            'all_roles' => $rolesArray
+        ]);
     }
 
     /**
@@ -39,7 +45,47 @@ class AdminUsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required|string',
+            'new_password' => 'nullable|string|max:30|min:8',
+            'email' => 'required|email',
+            'file' => 'nullable|image',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = new User();
+
+        $user->name = $request->input('name');
+
+        $user->email = $request->input('email');
+
+        if($request->file('file') !== null){
+            $path = $request->file('file')->store('images' , 'public');
+            if ($user->logo_path !== null) {
+                Storage::disk('public')->delete($user->logo_path);
+            }
+            $user->logo_path = $path;
+        }
+
+        if ($request->password !== null) {
+            $user->password = password_hash($request->new_password , PASSWORD_BCRYPT);
+        }
+
+        $user->save();
+
+        if ($request->role_id !== null) {
+            DB::update(
+                'update model_has_roles set role_id = ' . $request->role_id . ' where model_id = ' . $user->id
+            );
+        }
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Пользователь успешно создан');
     }
 
     /**
@@ -86,6 +132,7 @@ class AdminUsersController extends Controller
         $user = User::where(['id' => $request->id])->first();
 
         $user->name = $request->input('name');
+
         $user->email = $request->input('email');
 
         if($request->file('file') !== null){
@@ -107,7 +154,10 @@ class AdminUsersController extends Controller
             );
         }
         $user->save();
-        return redirect()->back()->with('success','Данные пользователя были обновлены');
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Данные пользователя были обновлены');
     }
 
     /**
@@ -119,6 +169,8 @@ class AdminUsersController extends Controller
             $user->delete();
         }
 
-        return redirect()->back()->with('success','Пользователь успешно удален');
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Пользователь успешно удален');
     }
 }

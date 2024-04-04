@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $table = 'services';
+
+    public $fillable = ['logo_path' , 'name' , 'description'];
 }

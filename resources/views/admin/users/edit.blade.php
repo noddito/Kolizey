@@ -50,8 +50,8 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
-                                        <button class="btn btn-dark"><a href="{{route('users.index')}}"> Отмена </a> </button>
+                                        <button type="submit" class="btn btn-inverse-success btn-fw">Сохранить</button>
+                                        <a href="{{route('users.index')}}" class="btn btn-inverse-danger btn-fw">Отмена</a>
                                     </form>
                                 </div>
                             </div>
