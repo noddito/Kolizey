@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectPhoto;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 use Storage;
 use Validator;
@@ -40,12 +42,19 @@ class AdminProjectsController extends Controller
     public function store(Request $request)
     {
         $project = new Project();
+
         $project->name = $request->name;
         $project->description = $request->description;
         $project->end_date = $request->end_date;
         $project->status = $request->status;
         $project->customer_id = $request->customer_id;
         $project->save();
+        if ($request->hasFile('files')) {
+            foreach($request->file('files') as $file){
+                $photo_path = $file->store('/project_photos' , 'public');
+                DB::table('project_photos')->insert(['id' => $project->id , 'photo_path' => $photo_path]);
+            }
+        }
 
         return redirect()
             ->route('projects.index')

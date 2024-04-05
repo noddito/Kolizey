@@ -14,7 +14,7 @@
                                         <div class="form-group">
                                             <label for="role">Роль</label>
                                             <br>
-                                            <select name="role_id" id="role_id" class="btn btn-outline-secondary dropdown-toggle" name="state">
+                                            <select name="role_id" id="role_id" class="btn btn-secondary dropdown-toggle" name="state">
                                                 @foreach($all_roles as $role)
                                                         <option value="{{$role->id}}">{{$role->name}}</option>
                                                 @endforeach
@@ -27,6 +27,18 @@
                                         <div class="form-group">
                                             <label for="email">Почта</label>
                                             <input type="email" name="email" class="form-control" id="email" placeholder="somemail@mail.com" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Номер телефона</label>
+                                            <input type="tel" name="phone" class="form-control" id="phone" placeholder="88005553535">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="site_url">Ссылка на сайт</label>
+                                            <input type="url" name="site_url" class="form-control" id="site_url" placeholder="somesite.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Описание фирмы</label>
+                                            <textarea type="text" name="description" class="form-control" id="description"> </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Пароль</label>

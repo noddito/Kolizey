@@ -9,6 +9,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Изменение параметров пользователя {{$user['name']}}</h4>
+                                    <div class="logo-block form-group" >
+                                        @if($user->logo_path !== null)
+                                            <img src="{{asset('/storage/' . $user->logo_path)}}" class="user-logo" alt="image">
+                                        @else
+                                            <img src="{{asset('/admin/assets/images/admin-logo.png')}}" class="user-logo" alt="image">
+                                        @endif
+                                    </div>
                                     <form class="forms-sample" action="{{ route('users.update' , $user['id']) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
@@ -19,7 +26,7 @@
                                         <div class="form-group">
                                             <label for="role">Роль</label>
                                             <br>
-                                            <select name="role_id" id="role_id" class="btn btn-outline-secondary dropdown-toggle" name="state">
+                                            <select name="role_id" id="role_id" class="btn btn-secondary dropdown-toggle" name="state">
                                                 @foreach($all_roles as $role)
                                                     @if($role->id == $curennt_role->id)
                                                         <option value="{{$role->id}}" selected>{{$role->name}}</option>
@@ -36,6 +43,18 @@
                                         <div class="form-group">
                                             <label for="email">Почта</label>
                                             <input type="email" name="email" class="form-control" id="email" placeholder="somemail@mail.com" value="{{$user['email']}}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Номер телефона</label>
+                                            <input type="tel" name="phone" class="form-control" id="phone" placeholder="88005553535" value="{{$user['phone']}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="site_url">Ссылка на сайт</label>
+                                            <input type="url" name="site_url" class="form-control" id="site_url" placeholder="somesite.com" value="{{$user['site_url']}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Описание фирмы</label>
+                                            <textarea type="text" name="description" class="form-control" id="description" value="{{$user['description']}}"> </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Новый пароль</label>

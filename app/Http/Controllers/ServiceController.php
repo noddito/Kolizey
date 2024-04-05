@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    function getIndexPage()
+    function index()
     {
         return view('services');
     }

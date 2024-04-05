@@ -22,7 +22,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Описание</label>
-                                            <input type="text" name="description" class="form-control" id="description" placeholder="подробное описание" value="{{$service->description}}" required>
+                                            <textarea type="text" name="description" class="form-control" id="description" placeholder="подробное описание" value="{{$service->description}}" required> </textarea>
                                         </div>
                                         <div class="example-2">
                                             <div class="form-group">

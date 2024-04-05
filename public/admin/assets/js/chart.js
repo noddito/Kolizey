@@ -4,11 +4,27 @@ $(function() {
    * Data and config for chartjs
    */
   'use strict';
+
+    let dataTimeArr = [];
+    let labelsForMonth = [];
+    let dataTimeArrayLenght = Array.prototype.slice.call(document.getElementsByClassName('order-count')).length;
+    for (let counter = 0; counter < dataTimeArrayLenght; counter++)
+    {
+        dataTimeArr.push(document.getElementsByClassName('order-count')[counter].innerHTML);
+        console.log(document.getElementsByClassName('order-count')[counter].innerHTML);
+    }
+    for (let counter = 0; counter < dataTimeArrayLenght; counter++)
+    {
+        labelsForMonth.push(document.getElementsByClassName('order')[counter].innerHTML);
+        console.log(document.getElementsByClassName('order')[counter].innerHTML);
+    }
+    console.log(dataTimeArr);
   var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+
+    labels: labelsForMonth,
     datasets: [{
-      label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
+      label: 'Количество заказов',
+      data: dataTimeArr,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -85,11 +101,21 @@ $(function() {
       }
     }
   };
+  let dataArr = [];
+  let labelsArr = [];
+  let arrayLenght = Array.prototype.slice.call(document.getElementsByClassName('status-count')).length;
+    for (let counter = 0; counter < arrayLenght; counter++)
+    {
+        dataArr.push(document.getElementsByClassName('status-count')[counter].innerHTML);
+    }
+    for (let counter = 0; counter < arrayLenght; counter++)
+    {
+        labelsArr.push(document.getElementsByClassName('status')[counter].innerHTML);
+    }
 
-  
   var doughnutPieData = {
     datasets: [{
-      data: [30, 40, 30],
+      data: dataArr,
       backgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(54, 162, 235, 0.5)',
@@ -109,11 +135,7 @@ $(function() {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Pink',
-      'Blue',
-      'Yellow',
-    ]
+    labels: labelsArr
   };
   var doughnutPieOptions = {
     responsive: true,
