@@ -16483,7 +16483,7 @@ code {
 /*    border-color: #ffab00; }*/
 
 .btn-inverse-warning {
-    background-color: rgba(155, 120, 33+, 0.2);
+    background-color: rgba(155, 120, 33, 0.2);
     background-image: none;
     border-color: rgba(255, 171, 0, 0); }
 .btn-inverse-warning:not(.btn-inverse-light) {
