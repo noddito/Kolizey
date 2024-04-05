@@ -16453,34 +16453,64 @@ code {
     background: #8f5fe8;
     border-color: #8f5fe8; }
 
+/*.btn-inverse-warning {*/
+/*  background-color: rgba(255, 171, 0, 0.2);*/
+/*  background-image: none;*/
+/*  border-color: rgba(255, 171, 0, 0); }*/
+/*  .btn-inverse-warning:not(.btn-inverse-light) {*/
+/*    color: #ffab00; }*/
+/*  .btn-inverse-warning:hover {*/
+/*    color: #ffffff;*/
+/*    background-color: #ffab00;*/
+/*    border-color: #ffab00; }*/
+/*  .btn-inverse-warning.focus, .btn-inverse-warning:focus {*/
+/*    box-shadow: 0 0 0 3px rgba(255, 171, 0, 0.5); }*/
+/*  .btn-inverse-warning.disabled, .btn-inverse-warning:disabled {*/
+/*    color: #ffab00;*/
+/*    background-color: transparent; }*/
+/*  .btn-inverse-warning.active, .btn-inverse-warning:active,*/
+/*  .show > .btn-inverse-warning.dropdown-toggle {*/
+/*    color: #ffffff;*/
+/*    background-color: #ffab00;*/
+/*    border-color: #ffab00; }*/
+
+/*.btn-warning:not(.btn-light):not(.btn-secondary) {*/
+/*  color: #ffffff; }*/
+/*  .btn-warning:not(.btn-light):not(.btn-secondary):hover, .btn-warning:not(.btn-light):not(.btn-secondary):focus, .btn-warning:not(.btn-light):not(.btn-secondary):active {*/
+/*    color: #ffffff; }*/
+/*  .btn-warning:not(.btn-light):not(.btn-secondary):focus, .btn-warning:not(.btn-light):not(.btn-secondary):active {*/
+/*    background: #ffab00;*/
+/*    border-color: #ffab00; }*/
+
 .btn-inverse-warning {
-  background-color: rgba(255, 171, 0, 0.2);
-  background-image: none;
-  border-color: rgba(255, 171, 0, 0); }
-  .btn-inverse-warning:not(.btn-inverse-light) {
-    color: #ffab00; }
-  .btn-inverse-warning:hover {
+    background-color: rgba(155, 120, 33, 0.2);
+    background-image: none;
+    border-color: rgba(255, 171, 0, 0); }
+.btn-inverse-warning:not(.btn-inverse-light) {
+    color: #efc765; }
+.btn-inverse-warning:hover {
     color: #ffffff;
-    background-color: #ffab00;
-    border-color: #ffab00; }
-  .btn-inverse-warning.focus, .btn-inverse-warning:focus {
+    background-color: #efc765;
+    border-color: #efc765; }
+.btn-inverse-warning.focus, .btn-inverse-warning:focus {
     box-shadow: 0 0 0 3px rgba(255, 171, 0, 0.5); }
-  .btn-inverse-warning.disabled, .btn-inverse-warning:disabled {
-    color: #ffab00;
+.btn-inverse-warning.disabled, .btn-inverse-warning:disabled {
+    color: #efc765;
     background-color: transparent; }
-  .btn-inverse-warning.active, .btn-inverse-warning:active,
-  .show > .btn-inverse-warning.dropdown-toggle {
+.btn-inverse-warning.active, .btn-inverse-warning:active,
+.show > .btn-inverse-warning.dropdown-toggle {
     color: #ffffff;
-    background-color: #ffab00;
-    border-color: #ffab00; }
+    background-color: #efc765;
+    border-color: #efc765; }
 
 .btn-warning:not(.btn-light):not(.btn-secondary) {
-  color: #ffffff; }
-  .btn-warning:not(.btn-light):not(.btn-secondary):hover, .btn-warning:not(.btn-light):not(.btn-secondary):focus, .btn-warning:not(.btn-light):not(.btn-secondary):active {
     color: #ffffff; }
-  .btn-warning:not(.btn-light):not(.btn-secondary):focus, .btn-warning:not(.btn-light):not(.btn-secondary):active {
-    background: #ffab00;
-    border-color: #ffab00; }
+.btn-warning:not(.btn-light):not(.btn-secondary):hover, .btn-warning:not(.btn-light):not(.btn-secondary):focus, .btn-warning:not(.btn-light):not(.btn-secondary):active {
+    color: #ffffff; }
+.btn-warning:not(.btn-light):not(.btn-secondary):focus, .btn-warning:not(.btn-light):not(.btn-secondary):active {
+    background: #efc765;
+    border-color: #efc765; }
+
 
 .btn-inverse-danger {
   background-color: rgba(252, 66, 74, 0.2);
@@ -20741,7 +20771,7 @@ div.tagsinput {
           content: "";
           width: 3px;
           height: 100%;
-          background: #0090e7;
+          background: #efc765;
           display: inline-block;
           position: absolute;
           left: 0;
@@ -21143,21 +21173,14 @@ div.tagsinput {
 .form-label-style {
     color:white
 }
-.truncate {
-    padding: 10px; /* Поля вокруг текста */
-    white-space: nowrap; /* Текст не переносится */
-    overflow: hidden; /* Обрезаем всё за пределами блока */
-    text-overflow: ellipsis; /* Добавляем многоточие */
+
+.user-logo {
+    width: 8vw;
+    height: 8vw;
 }
 
-.truncate td {
-    margin: 0; /* Убираем внешний отступ */
-    -webkit-line-clamp: 2; /* Число отображаемых строк */
-    display: -webkit-box; /* Включаем флексбоксы */
-    -webkit-box-orient: vertical; /* Вертикальная ориентация */
-    overflow: hidden; /* Обрезаем всё за пределами блока */
-}
-.td-description {
-    width: 40px;
+.logo-block {
+    text-align: right;
+    float: right;
 }
 /*# sourceMappingURL=maps/style.css.map */

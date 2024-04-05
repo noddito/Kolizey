@@ -18,7 +18,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Описание</label>
-                                            <input type="text" name="description" class="form-control" id="description" placeholder="Какое-то описание" value="{{$project->description}}">
+                                            <textarea type="text" name="description" class="form-control" id="description" placeholder="Какое-то описание" value="{{$project->description}}"> </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="end_date">Дата окончания</label>
@@ -27,7 +27,7 @@
                                         <div class="form-group">
                                             <label for="status">Статус</label>
                                             <br>
-                                            <select name="status" id="status" class="btn btn-outline-secondary dropdown-toggle">
+                                            <select name="status" id="status" class="btn btn-secondary dropdown-toggle">
                                                 @if($project->status === 'Создан')
                                                     <option value="Создан" selected>Создан</option>
                                                     <option value="Закончен">Закончен</option>
@@ -46,7 +46,7 @@
                                         <div class="form-group">
                                             <label for="status">Заказчик</label>
                                             <br>
-                                            <select name="customer_id" id="customer_id" class="btn btn-outline-secondary dropdown-toggle">
+                                            <select name="customer_id" id="customer_id" class="btn btn-secondary dropdown-toggle">
                                                 @foreach($all_customers as $customer)
                                                     @if($customer->id === $curennt_customer->id)
                                                         <option value="{{$customer->id}}" selected>{{$customer->name}}</option>

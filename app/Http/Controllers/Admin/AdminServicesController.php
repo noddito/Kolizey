@@ -38,7 +38,7 @@ class AdminServicesController extends Controller
         $service->name = $request->name;
         $service->description = $request->description;
         if($request->file('file') !== null){
-            $path = $request->file('file')->store('images' , 'public');
+            $path = $request->file('file')->store('/service_logos' , 'public');
             if ($service->logo_path !== null) {
                 Storage::disk('public')->delete($service->logo_path);
             }
@@ -90,7 +90,7 @@ class AdminServicesController extends Controller
         $service->name = $request->name;
         $service->description = $request->description;
         if($request->file('file') !== null){
-            $path = $request->file('file')->store('images' , 'public');
+            $path = $request->file('file')->store('service_logos' , 'public');
             if ($service->logo_path !== null) {
                 Storage::disk('public')->delete($service->logo_path);
             }

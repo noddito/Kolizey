@@ -29,15 +29,14 @@
                                         <td>
                                             <td>
                                                 @if($service->logo_path !== null)
-                                                    <img src="{{asset('/storage/' . $service->logo_path)}}" alt="image">
+                                                    <img src="{{asset('/storage/images/' . $service->logo_path)}}" alt="image">
                                                 @else
                                                     <img src="{{asset('/admin/assets/images/service-logo.png')}}" alt="image">
                                                 @endif
                                             </td>
                                             <td> {{$service->name}} </td>
-                                            <td> {{$service->description}} </td>
+                                            <td> {{Str::limit($service->description, 30, '...')}} </td>
                                             <td> <a href="{{route('services.edit' , $service->id)}}" type="button" class="btn btn-inverse-success btn-fw">Изменить</a>
-                                        <td>
                                             <button type="submit" class="btn btn-inverse-danger btn-fw delete-btn">Удалить</button>
                                             <div id="PromiseConfirm" class="modal">
                                                 <div class="modal-dialog" role="document">

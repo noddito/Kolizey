@@ -19,7 +19,7 @@
                                         <tr>
                                             <th>  </th>
                                             <th> Название </th>
-                                            <th class="td-description"> Описание </th>
+                                            <th> Описание </th>
                                             <th> Статус </th>
                                         </tr>
                                         </thead>
@@ -28,13 +28,13 @@
                                             <tr>
                                             <td>
                                                 @if($project->logo_path !== null)
-                                                    <img src="{{asset('/storage/' . $project->logo_path)}}" alt="image">
+                                                    <img src="{{asset('/storage/images/' . $project->logo_path)}}" alt="image">
                                                 @else
                                                     <img src="{{asset('/admin/assets/images/service-logo.png')}}" alt="image">
                                                 @endif
                                             </td>
                                             <td> {{$project->name}} </td>
-                                            <td class="truncate"> {{$project->description}} </td>
+                                            <td> {{Str::limit($project->description, 30, '...')}}</td>
                                             <td>
                                                 @if($project->status === 'Создан')
                                                     <div class="badge badge-outline-info">{{$project->status}} </div>
@@ -51,7 +51,6 @@
                                                         Изменить
                                                     </button>
                                                 </a>
-                                            <td>
                                                 <button type="submit" class="btn btn-inverse-danger btn-fw delete-btn">Удалить</button>
                                                 <div id="PromiseConfirm" class="modal">
                                                     <div class="modal-dialog" role="document">

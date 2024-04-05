@@ -18,6 +18,7 @@ class AdminUsersController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $projects = Project::orderBy('created_at' , 'desc')->get();
@@ -49,6 +50,9 @@ class AdminUsersController extends Controller
             'name' => 'required|string',
             'new_password' => 'nullable|string|max:30|min:8',
             'email' => 'required|email',
+            'phone' => 'nullable|numeric|size:11',
+            'site_url' => 'string|nullable',
+            'description' => 'string|nullable',
             'file' => 'nullable|image',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -64,7 +68,7 @@ class AdminUsersController extends Controller
         $user->email = $request->input('email');
 
         if($request->file('file') !== null){
-            $path = $request->file('file')->store('images' , 'public');
+            $path = $request->file('file')->store('user_logos' , 'public');
             if ($user->logo_path !== null) {
                 Storage::disk('public')->delete($user->logo_path);
             }
@@ -81,6 +85,13 @@ class AdminUsersController extends Controller
             DB::update(
                 'update model_has_roles set role_id = ' . $request->role_id . ' where model_id = ' . $user->id
             );
+        }
+        else {
+            $user_role = new ModelHasRoles();
+            $user_role->role_id = 2; // 2 - customer_role_id
+            $user_role->model_id = $user->id;
+            $user_role->model_type = 'App\Models\User';
+            $user_role->save();
         }
 
         return redirect()
@@ -121,6 +132,9 @@ class AdminUsersController extends Controller
             'name' => 'required|string',
             'new_password' => 'nullable|string|max:30|min:8',
             'email' => 'required|email',
+            'phone' => 'nullable|numeric|size:11',
+            'site_url' => 'string|nullable',
+            'description' => 'string|nullable',
             'file' => 'nullable|image',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -132,11 +146,13 @@ class AdminUsersController extends Controller
         $user = User::where(['id' => $request->id])->first();
 
         $user->name = $request->input('name');
-
         $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->site_url = $request->input('site_url');
+        $user->description = $request->input('description');
 
         if($request->file('file') !== null){
-            $path = $request->file('file')->store('images' , 'public');
+            $path = $request->file('file')->store('user_logos' , 'public');
             if ($user->logo_path !== null) {
                 Storage::disk('public')->delete($user->logo_path);
             }

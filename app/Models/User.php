@@ -1,4 +1,5 @@
 <?php
+//declare(strict_types=1);
 
 namespace App\Models;
 
@@ -10,10 +11,15 @@ class User extends Authenticatable
 {
     use HasFactory;
     use HasRoles;
-    public $fillable = ['logo_path' , 'name' , 'email' , 'password'];
-    /**
-     * @var false|mixed|string
-     */
+    public $fillable = [
+        'logo_path' ,
+        'name' ,
+        'email' ,
+        'password' ,
+        'phone' ,
+        'site_url' ,
+        'description'
+    ];
 
     protected $table = 'users';
 }

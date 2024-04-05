@@ -27,7 +27,7 @@
                                         <tr>
                                             <td>
                                                 @if($user->logo_path !== null)
-                                                    <img src="{{asset('/storage/' . $user->logo_path)}}" alt="image">
+                                                    <img src="{{asset('/storage/images/' . $user->logo_path)}}" alt="image">
                                                 @else
                                                     <img src="{{asset('/admin/assets/images/admin-logo.png')}}" alt="image">
                                                 @endif

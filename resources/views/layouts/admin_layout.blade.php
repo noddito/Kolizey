@@ -59,6 +59,15 @@
                     <span class="menu-title">Услуги</span>
                 </a>
             </li>
+
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{{ route('company.index') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-home"></i>
+              </span>
+                    <span class="menu-title">О компании</span>
+                </a>
+            </li>
         </ul>
     </nav>
     <!-- partial -->
@@ -102,8 +111,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                             <div class="navbar-profile">
-                                @if(isset(Auth::user()->logo_path) && is_file('storage/' . Auth::user()->logo_path))
-                                    <img class="img-xs rounded-circle" src="{{asset('/storage/' . Auth::user()->logo_path)}}" alt="">
+                                @if(isset(Auth::user()->logo_path) && is_file('storage/images/' . Auth::user()->logo_path))
+                                    <img class="img-xs rounded-circle" src="{{asset('/storage/images/' . Auth::user()->logo_path)}}" alt="">
                                 @else
                                     <img class="img-xs rounded-circle" src="{{asset('/admin/assets/images/admin-logo.png')}}" alt="">
                                 @endif

@@ -1,3 +1,5 @@
+import Chartist from "progressbar.js";
+
 (function($) {
   //simple line
   'use strict';
