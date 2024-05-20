@@ -26,6 +26,7 @@
                                     </thead>
                                     <tbody>
                                     @foreach($services as $service)
+                                        <tr>
                                         <td>
                                             <td>
                                                 @if($service->logo_path !== null)
@@ -62,6 +63,7 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        </tr>
                                     @endforeach
                                     </tbody>
                                 </table>

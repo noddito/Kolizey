@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\AdminSide;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
@@ -13,9 +18,9 @@ class AdminServicesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        $services = Service::orderBy('created_at' , 'desc')->get();
+        $services = Service::orderBy('created_at', 'desc')->get();
         return view('admin.services.index', [
             'services' => $services
         ]);
@@ -24,7 +29,7 @@ class AdminServicesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.services.create');
     }
@@ -32,18 +37,12 @@ class AdminServicesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $service = new Service();
         $service->name = $request->name;
         $service->description = $request->description;
-        if($request->file('file') !== null){
-            $path = $request->file('file')->store('/service_logos' , 'public');
-            if ($service->logo_path !== null) {
-                Storage::disk('public')->delete($service->logo_path);
-            }
-            $service->logo_path = $path;
-        }
+        $service->savePhotos($request, $service , '/service_logos');
         $service->save();
 
         return redirect()
@@ -62,9 +61,9 @@ class AdminServicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit(Service $service): View
     {
-        return view('admin.services.edit' , [
+        return view('admin.services.edit', [
             'service' => $service
         ]);
     }
@@ -72,7 +71,7 @@ class AdminServicesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, Service $service): RedirectResponse
     {
         $rules = [
             'name' => 'required|string',
@@ -89,14 +88,7 @@ class AdminServicesController extends Controller
         $service = Service::where(['id' => $request->id])->first();
         $service->name = $request->name;
         $service->description = $request->description;
-        if($request->file('file') !== null){
-            $path = $request->file('file')->store('service_logos' , 'public');
-            if ($service->logo_path !== null) {
-                Storage::disk('public')->delete($service->logo_path);
-            }
-            $service->logo_path = $path;
-        }
-
+        $service->savePhotos($request, $service , '/service_logos');
         $service->save();
         return redirect()
             ->route('services.index')

@@ -1,12 +1,14 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\AdminSide;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class AdminSettingsController extends Controller
@@ -14,7 +16,7 @@ class AdminSettingsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    function index ()
+    function index(): View
     {
         return view('admin.settings');
     }
@@ -54,7 +56,7 @@ class AdminSettingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
         $rules = [
             'name' => 'required|string',
@@ -73,23 +75,7 @@ class AdminSettingsController extends Controller
         $user = User::where(['id' => Auth::user()->id])->first();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        if($request->file('file') !== null){
-            $path = $request->file('file')->store('images' , 'public');
-            if ($user->logo_path !== null) {
-                Storage::disk('public')->delete($user->logo_path);
-            }
-            $user->logo_path = $path;
-            $user->save();
-        }
-        if(password_verify( $request->old_password , $user->password ) === false)
-        {
-            return redirect()->back()->withErrors(['error' => 'Введен не правильный текущий пароль']);
-        }
-        if(password_verify( $request->old_password , $user->password ) === true && $request->new_password !== null){
-            $user->password = password_hash($request->new_password , PASSWORD_BCRYPT);
-            $user->save();
-            return redirect()->back()->with('success','Данные пользователя были обновлены');
-        }
+        $user->verifyPassword($request, $user);
         return redirect()->back();
     }
 

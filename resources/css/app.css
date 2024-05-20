@@ -46,3 +46,12 @@
 /*.nav-link:hover {*/
 /*    color: #ECD470;*/
 /*}*/
+.slide {
+    width:450px;
+    height: 450px;
+    object-fit: cover;
+}
+.custom-container {
+    width: 100%;
+    overflow: hidden;
+}

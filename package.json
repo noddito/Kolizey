@@ -7,6 +7,7 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
+        "@types/ol": "^7.0.0",
         "@vitejs/plugin-vue": "^4.5.0",
         "axios": "^1.6.4",
         "bootstrap": "^5.3.3",
@@ -46,6 +47,7 @@
         "merge-stream": "^2.0.0",
         "minimatch": "^9.0.4",
         "moment": "^2.30.1",
+        "ol": "^9.1.0",
         "owl.carousel": "^2.3.4",
         "perfect-scrollbar": "^1.5.5",
         "popper.js": "^1.16.1",
@@ -57,7 +59,7 @@
         "sass-loader": "^14.1.1",
         "select2": "^4.1.0-rc.0",
         "select2-bootstrap-theme": "^0.1.0-beta.10",
-        "swiper": "^11.0.7",
+        "swiper": "^11.1.0",
         "twbs-pagination": "^1.4.2",
         "typeahead.js": "^0.11.1",
         "vue-template-compiler": "^2.7.16"

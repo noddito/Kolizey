@@ -1,16 +1,19 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\AdminSide;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelHasRoles;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Expr\AssignOp\Mod;
 use Validator;
 
 class AdminUsersController extends Controller
@@ -19,12 +22,12 @@ class AdminUsersController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(): View
     {
-        $projects = Project::orderBy('created_at' , 'desc')->get();
-        $users = User::orderBy('created_at' , 'desc')->get();
-        return view('admin.users.index',[
-            'users' => $users,
+        $projects = Project::orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'desc')->get();
+        return view('admin.users.index', [
+                'users' => $users,
                 'projects' => $projects
             ]
         );
@@ -33,10 +36,10 @@ class AdminUsersController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         $rolesArray = Role::query()->get();
-        return view('admin.users.create' , [
+        return view('admin.users.create', [
             'all_roles' => $rolesArray
         ]);
     }
@@ -44,7 +47,7 @@ class AdminUsersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $rules = [
             'name' => 'required|string',
@@ -67,16 +70,10 @@ class AdminUsersController extends Controller
 
         $user->email = $request->input('email');
 
-        if($request->file('file') !== null){
-            $path = $request->file('file')->store('user_logos' , 'public');
-            if ($user->logo_path !== null) {
-                Storage::disk('public')->delete($user->logo_path);
-            }
-            $user->logo_path = $path;
-        }
+        $user->savePhotos($request, $user , '/user_logos');
 
         if ($request->password !== null) {
-            $user->password = password_hash($request->new_password , PASSWORD_BCRYPT);
+            $user->password = password_hash($request->new_password, PASSWORD_BCRYPT);
         }
 
         $user->save();
@@ -85,8 +82,7 @@ class AdminUsersController extends Controller
             DB::update(
                 'update model_has_roles set role_id = ' . $request->role_id . ' where model_id = ' . $user->id
             );
-        }
-        else {
+        } else {
             $user_role = new ModelHasRoles();
             $user_role->role_id = 2; // 2 - customer_role_id
             $user_role->model_id = $user->id;
@@ -110,13 +106,13 @@ class AdminUsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
-        $role_id = ModelHasRoles::where('model_id',$user->id)->get();
-        $curennt_role = Role::where('id',$role_id[0]->role_id)->get();
+        $role_id = ModelHasRoles::where('model_id', $user->id)->get();
+        $curennt_role = Role::where('id', $role_id[0]->role_id)->get();
         $rolesArray = Role::query()->get();
 
-        return view('admin.users.edit' , [
+        return view('admin.users.edit', [
             'user' => $user,
             'curennt_role' => $curennt_role[0],
             'all_roles' => $rolesArray
@@ -126,7 +122,7 @@ class AdminUsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
         $rules = [
             'name' => 'required|string',
@@ -150,18 +146,10 @@ class AdminUsersController extends Controller
         $user->phone = $request->input('phone');
         $user->site_url = $request->input('site_url');
         $user->description = $request->input('description');
-
-        if($request->file('file') !== null){
-            $path = $request->file('file')->store('user_logos' , 'public');
-            if ($user->logo_path !== null) {
-                Storage::disk('public')->delete($user->logo_path);
-            }
-            $user->logo_path = $path;
-            $user->save();
-        }
+        $user->savePhotos($request, $user , '/user_logos');
 
         if ($request->new_password !== null) {
-            $user->password = password_hash($request->new_password , PASSWORD_BCRYPT);
+            $user->password = password_hash($request->new_password, PASSWORD_BCRYPT);
         }
 
         if ($request->role_id !== null) {
@@ -179,9 +167,9 @@ class AdminUsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
-        if($user->id !== 1) {
+        if ($user->id !== 1) {
             $user->delete();
         }
 
