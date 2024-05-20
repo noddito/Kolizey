@@ -18,7 +18,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Описание</label>
-                                            <textarea type="text" name="description" class="form-control" id="description" placeholder="Какое-то описание" value="{{$project->description}}"> </textarea>
+                                            <textarea type="text" name="description" class="form-control" placeholder="Какое-то описание">{{$project->description}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="end_date">Дата окончания</label>
@@ -55,6 +55,15 @@
                                                     @endif
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="example-2">
+                                            <div class="form-group">
+                                                <input type="file" id="file" name="files[]" class="input-file" accept="image/jpeg , image/png" multiple>
+                                                <label for="file" class="btn btn-tertiary js-labelFile">
+                                                    <i class="icon fa fa-check"></i>
+                                                    <span class="js-fileName">Загрузить фото</span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-inverse-success btn-fw">Сохранить</button>
                                         <a href="{{route('projects.index')}}" class="btn btn-inverse-danger btn-fw">Отмена</a>

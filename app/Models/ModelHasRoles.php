@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -12,5 +13,5 @@ class ModelHasRoles extends Authenticatable
 
     protected $primaryKey = 'role_id , model_type , model_id';
     protected $table = 'model_has_roles';
-    public $fillable = ['role_id , model_type, model_id'];
+    public $fillable = ['role_id' , 'model_type', 'model_id'];
 }

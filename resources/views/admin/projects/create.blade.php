@@ -1,5 +1,6 @@
 @extends('layouts.admin_layout')
 @section('content')
+    <script src="http://cdn.jsdelivr.net/gh/easy-linux/openstreetmap@master/1/build/easy-it-map.umd.js" type="module"></script>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row ">
@@ -41,6 +42,18 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="form-group" style="width: 200px; height: 200px;">
+                                            <easy-it-map id2="map1" lat="56.8519 " lon="60.6122" zoom="10" marker="{{asset('/admin/assets/images/marker.png')}}">
+                                                <div slot="popup-content" class="ol-popup">
+                                                    <a href="#" id="popup-closer" class="popup-closer"></a>
+                                                    <div id="popup-texts">
+                                                        <div>aaa bbb ccc</div>
+                                                        <div>aaa bbb ccc</div>
+                                                    </div>
+                                                </div>
+                                            </easy-it-map>
+                                        </div>
+
                                         <div class="example-2">
                                             <div class="form-group">
                                                 <input type="file" id="file" name="files[]" class="input-file" accept="image/jpeg , image/png" multiple>

@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Описание фирмы</label>
-                                            <textarea type="text" name="description" class="form-control" id="description" value="{{$user['description']}}"> </textarea>
+                                            <textarea type="text" name="description" class="form-control" id="description">{{$user['description']}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Новый пароль</label>

@@ -1,14 +1,17 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\AdminSide;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\ProjectPhoto;
 use App\Models\User;
 use DB;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Storage;
 use Validator;
 
 class AdminProjectsController extends Controller
@@ -16,10 +19,10 @@ class AdminProjectsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        $projects = Project::orderBy('created_at' , 'desc')->get();
-        return view('admin.projects.index' , [
+        $projects = Project::orderBy('created_at', 'desc')->get();
+        return view('admin.projects.index', [
             'projects' => $projects
         ]);
     }
@@ -27,11 +30,11 @@ class AdminProjectsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         $customersArray = User::query()->get();
 
-        return view('admin.projects.create' , [
+        return view('admin.projects.create', [
             'all_customers' => $customersArray
         ]);
     }
@@ -39,9 +42,14 @@ class AdminProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $project = new Project();
+
+        $validator = Validator::make($request->all(), $project->rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $project->name = $request->name;
         $project->description = $request->description;
@@ -49,12 +57,7 @@ class AdminProjectsController extends Controller
         $project->status = $request->status;
         $project->customer_id = $request->customer_id;
         $project->save();
-        if ($request->hasFile('files')) {
-            foreach($request->file('files') as $file){
-                $photo_path = $file->store('/project_photos' , 'public');
-                DB::table('project_photos')->insert(['id' => $project->id , 'photo_path' => $photo_path]);
-            }
-        }
+        $project->saveProjectPhotos($request, $project->id);
 
         return redirect()
             ->route('projects.index')
@@ -72,12 +75,12 @@ class AdminProjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(Project $project): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        $curennt_customer = Project::where('id',$project->id)->get();
+        $curennt_customer = Project::where('id', $project->id)->get();
         $customersArray = User::query()->get();
 
-        return view('admin.projects.edit' , [
+        return view('admin.projects.edit', [
             'project' => $project,
             'curennt_customer' => $curennt_customer[0],
             'all_customers' => $customersArray
@@ -87,22 +90,14 @@ class AdminProjectsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Project $project): RedirectResponse
     {
-        $rules = [
-            'name' => 'required|string',
-            'description' => 'nullable|string',
-            'file' => 'nullable|image',
-            'status' => 'required|string',
-            'customer_id' => 'required|integer',
-            'end_date' => 'nullable|date',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $project->rules);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         $project = Project::where(['id' => $project->id])->first();
         $project->name = $request->name;
         $project->description = $request->description;
@@ -111,6 +106,9 @@ class AdminProjectsController extends Controller
         $project->end_date = $request->end_date;
 
         $project->save();
+
+        $project->saveProjectPhotos($request, $project->id);
+
         return redirect()
             ->route('projects.index')
             ->with('success', 'Проект успешно изменен');
@@ -119,7 +117,7 @@ class AdminProjectsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project): RedirectResponse
     {
         $project->delete();
 

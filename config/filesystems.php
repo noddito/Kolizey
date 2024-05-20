@@ -36,9 +36,25 @@ return [
             'throw' => false,
         ],
 
+        'json' => [
+            'driver' => 'local',
+            'root' => storage_path('database/json'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public/images'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,

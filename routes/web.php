@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminCompanyController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminProjectsController;
-use App\Http\Controllers\Admin\AdminServicesController;
-use App\Http\Controllers\Admin\AdminSettingsController;
-use App\Http\Controllers\Admin\AdminUsersController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\CustomersController;
-use App\Http\Controllers\ProjectsController;
-use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AdminSide\AdminCompanyController;
+use App\Http\Controllers\AdminSide\AdminCompanyDescriptionController;
+use App\Http\Controllers\AdminSide\AdminCompanyInfoController;
+use App\Http\Controllers\AdminSide\AdminController;
+use App\Http\Controllers\AdminSide\AdminProjectsController;
+use App\Http\Controllers\AdminSide\AdminServicesController;
+use App\Http\Controllers\AdminSide\AdminSettingsController;
+use App\Http\Controllers\AdminSide\AdminUsersController;
+use App\Http\Controllers\UserSide\CompanyController;
+use App\Http\Controllers\UserSide\ContactsController;
+use App\Http\Controllers\UserSide\CustomersController;
+use App\Http\Controllers\UserSide\HomeController;
+use App\Http\Controllers\UserSide\ProjectsController;
+use App\Http\Controllers\UserSide\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +27,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('index');
+Route::get('/', [HomeController::class,'index'])->name('index');
 
 Route::get('/company', [CompanyController::class,'index']);
 
@@ -41,7 +42,11 @@ Route::get('/contacts', [ContactsController::class,'index']);
 Auth::routes();
 
 Route::group(['middleware' => ['role:admin'] , 'prefix' => 'admin'] , function (){
-    Route::get('/', [AdminController::class,'index'])->name('admin');
+    Route::get('index', [AdminController::class,'index'])->name('admin/index');
+    Route::get('company-info/index', [AdminCompanyInfoController::class,'index'])->name('company-info/index');
+    Route::get('company-description/edit', [AdminCompanyDescriptionController::class,'edit'])->name('company-description/edit');
+    Route::resource('company-info' , AdminCompanyInfoController::class);
+    Route::resource('company-description' , AdminCompanyDescriptionController::class);
     Route::resource('settings' , AdminSettingsController::class);
     Route::resource('users' , AdminUsersController::class);
     Route::resource('projects' , AdminProjectsController::class);

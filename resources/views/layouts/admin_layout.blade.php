@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Kolizey Admin</title>
+    <title>Kolizey AdminSide</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('/admin/assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/admin/assets/vendors/css/vendor.bundle.base.css') }}">
@@ -19,8 +19,9 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{ asset('/admin/assets/css/style.css') }}">
+    <link href="{{ '/admin/assets/css/colorbox.css' }}" rel="stylesheet">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{ asset('/admin/assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('/admin/assets/images/logo-mini.svg') }}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -28,8 +29,8 @@
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-            <a class="sidebar-brand brand-logo" href="{{ route('admin') }}"><img src="{{ asset('/admin/assets/images/logo.svg')}}" alt="logo" /></a>
-            <a class="sidebar-brand brand-logo-mini" href="{{session()->previousUrl()}}"><img src="{{ asset('/admin/assets/images/logo.svg' )}}" alt="logo" /></a>
+            <a class="sidebar-brand brand-logo" href="{{ route('admin/index') }}"><img src="{{ asset('/admin/assets/images/logo.svg')}}" alt="logo" /></a>
+            <a class="sidebar-brand brand-logo-mini" href="{{route('admin/index')}}"><img src="{{ asset('/admin/assets/images/logo.svg' )}}" alt="logo" /></a>
         </div>
         <ul class="nav">
             <li class="nav-item nav-category">
@@ -75,7 +76,7 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
             <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo-mini" href="{{session()->previousUrl()}}"><img src="{{ asset('/admin/assets/images/logo-mini.svg')}}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="{{url()->previous()}}"><img src="{{ asset('/admin/assets/images/logo-mini.svg')}}" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
                 <ul>
@@ -109,7 +110,7 @@
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown">
-                        <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+                        <a class="nav-link" id="profileDropdown" data-toggle="dropdown" aria-expanded="false" href="#">
                             <div class="navbar-profile">
                                 @if(isset(Auth::user()->logo_path) && is_file('storage/images/' . Auth::user()->logo_path))
                                     <img class="img-xs rounded-circle" src="{{asset('/storage/images/' . Auth::user()->logo_path)}}" alt="">
@@ -122,7 +123,7 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                            <h6 class="p-3 mb-0">Профиль</h6>
+                            <h6 class="p-3 mb-0">Администрирование</h6>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item" href="{{ route('settings.index') }}">
                                 <div class="preview-thumbnail">
@@ -132,6 +133,17 @@
                                 </div>
                                 <div class="preview-item-content">
                                     <p class="preview-subject mb-1">Настройки</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item preview-item" href="{{ route('index') }}">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="mdi mdi-subdirectory-arrow-left text-warning"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <p class="preview-subject mb-1">Вернуться на основной сайт</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
@@ -166,26 +178,17 @@
 </div>
 <!-- container-scroller -->
 <!-- plugins:js -->
-<script src="{{ asset('/admin/assets/vendors/js/vendor.bundle.base.js')}}"></script>
-<!-- endinject -->
-<!-- Plugin js for this page -->
-<script src="{{ asset('/admin/assets/vendors/chart.js/Chart.min.js')}}"></script>
-<script src="{{ asset('/admin/assets/vendors/progressbar.js/progressbar.min.js')}}"></script>
+@if($_SERVER['REQUEST_URI'] !== '/admin/index')
+    <script src="{{ asset('/admin/assets/vendors/js/vendor.bundle.base.js')}}"></script>
+@endif
 <script src="{{ asset('/admin/assets/vendors/jvectormap/jquery-jvectormap.min.js')}}"></script>
 <script src="{{ asset('/admin/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-<script src="{{ asset('/admin/assets/vendors/owl-carousel-2/owl.carousel.min.js')}}"></script>
-<!-- End plugin js for this page -->
-<!-- inject:js -->
 <script src="{{ asset('/admin/assets/js/off-canvas.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/hoverable-collapse.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/misc.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/settings.js')}}"></script>
-<script src="{{ asset('/admin/assets/js/todolist.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/inputfile.js')}}"></script>
 <script src="{{ asset('/admin/assets/js/delete-button.js')}}"></script>
-<!-- endinject -->
-<!-- Custom js for this page -->
 <script src="{{ asset('/admin/assets/js/dashboard.js')}}"></script>
-<!-- End custom js for this page -->
 </body>
 </html>

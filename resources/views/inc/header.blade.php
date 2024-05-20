@@ -49,7 +49,7 @@
                                     @csrf
                                 </form>
                                 @if($roleId = DB::table('model_has_roles')->where('model_id', Auth::user()->id)->value('role_id') == 1)
-                                <a class="dropdown-item" href="/admin">
+                                <a class="dropdown-item" href="admin/index">
                                     {{ __('Администрирование') }}
                                 </a>
                                 @endif

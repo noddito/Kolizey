@@ -9,11 +9,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    @vite(['resources/js/app.js','resources/css/app.css'])
-    @vite(['resources/sass/app.sass'])
+    <link rel="shortcut icon" href="{{ asset('/admin/assets/images/logo-mini.svg') }}" />
     <!-- Fonts -->
-
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/swiper.js' , 'resources/sass/app.sass' , 'resources/css/app.css'])
     @yield('head')
 </head>
 <body>
